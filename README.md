@@ -124,4 +124,8 @@ Attributes:
 TBA
 
 ## References:
+- [OpenCensus Example](https://github.com/census-instrumentation/opencensus-go/tree/master/examples)
+- [OpenCensus Documentation](https://opencensus.io/)
+- [How not to measure Latency Talk](https://www.youtube.com/watch?v=lJ8ydIuPFeU)
+- [OpenCensus vs OpenTracing](https://github.com/gomods/athens/issues/392)
 
