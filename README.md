@@ -62,6 +62,8 @@ docker run -d --name jaeger \
 ```bash
 docker run -p 9090:9090 -d -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
+<b>Reference</b>
+- [Deploy Prometheus using Docker](https://prometheus.io/docs/prometheus/latest/installation/#using-docker)
 
 ### Start OpenCensus service
 - Start OpenCensus Agent
