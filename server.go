@@ -70,6 +70,12 @@ func main() {
 		panic(err)
 	}
 
+	err = tracing.RegisterAllDatabaseViews()
+	if err != nil {
+		panic(err)
+	}
+	defer tracing.UnregisterAllDatabaseViews()
+
 	_, err = tracing.RunConsoleExporter()
 	if err != nil {
 		panic(err)

@@ -219,14 +219,14 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:4ddb294844815c73f8a1872f0154e19e3e306694b02ae15e29a829e37345f7ca"
+  digest = "1:d9ec9f28f04460c94830070ed75386cdaecb8580e6f1ca3c4a4a60252b7fa552"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "52d1b9a53a46b582c58310ffc8d1f676877bcff3"
+  revision = "bcb7781d47c2e11385314a6a0899a4fd3c8756cf"
 
 [[projects]]
   digest = "1:d115651498fe2d54e8317beae4a9c1f0948573879956f04a8fded1566662a095"
@@ -267,7 +267,7 @@
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "cbcb750295291b33242907a04be40e80801d0cfc"
+  revision = "22d7a77e9e5f409e934ed268692e56707cd169e5"
 
 [[projects]]
   branch = "master"
@@ -314,11 +314,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fc5df4cb84cdf639ef702c176a50a9ee08ea3e68ebd67519c0f4f963c7d82978"
+  digest = "1:583a0c80f5e3a9343d33aea4aead1e1afcc0043db66fdf961ddd1fe8cd3a4faf"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "b515fa19cec88c32f305a962f34ae60068947aea"
+  revision = "d00d292a067ce1aa0017b40ca75437b42461fa61"
 
 [[projects]]
   digest = "1:041b0dc4050bb1be1e15c232c3328019922b2b14931340eca020ec182bf9a98d"
