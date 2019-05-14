@@ -1,7 +1,10 @@
+global:
+  scrape_interval: 10s
+  external_labels:
+    monitor: 'demo'
+
 scrape_configs:
   - job_name: 'trustingsocial_ocmetrics'
-
     scrape_interval: 5s
-
     static_configs:
-      - targets: ['127.0.0.1:3000']
+      - targets: ['host.docker.internal:3000']

@@ -219,14 +219,14 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:d9ec9f28f04460c94830070ed75386cdaecb8580e6f1ca3c4a4a60252b7fa552"
+  digest = "1:0b1317cf115c5fa79c408bfaba51a9f0a01c3f25c4ed14c1673664e3741c5f58"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "bcb7781d47c2e11385314a6a0899a4fd3c8756cf"
+  revision = "5523eb0b9fa257313962632abdd45ebd1953a9da"
 
 [[projects]]
   digest = "1:d115651498fe2d54e8317beae4a9c1f0948573879956f04a8fded1566662a095"
@@ -275,7 +275,7 @@
   name = "golang.org/x/net"
   packages = ["context"]
   pruneopts = "UT"
-  revision = "a4d6f7feada510cc50e69a37b484cb0fdc6b7876"
+  revision = "3ec19112720433827bbce8be9342797f5a6aaaf9"
 
 [[projects]]
   branch = "master"
@@ -287,14 +287,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:646036a04e163f383d101f40e36fd3354676c7dcccc226d825200a6b9509727a"
+  digest = "1:b0cf0a23da8288b6d1ec9187e87f95d6e957f50f41b62f06b4eefaa01d4e8d7a"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "a5b02f93d862f065920dd6a40dddc66b60d0dec4"
+  revision = "3a4b5fb9f71f5874b2374ae059bc0e0bcb52e145"
 
 [[projects]]
   digest = "1:5f003878aabe31d7f6b842d4de32b41c46c214bb629bb485387dbcce1edf5643"

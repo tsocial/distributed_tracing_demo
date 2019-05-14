@@ -81,7 +81,12 @@ func main() {
 		panic(err)
 	}
 
-	initServer(nil)
+	pe, err := tracing.RunPrometheusExporter("trustingsocial_ocmetrics")
+	if err != nil {
+		panic(err)
+	}
+
+	initServer(pe)
 }
 
 func initServer(pe *prometheus.Exporter) {
@@ -92,7 +97,7 @@ func initServer(pe *prometheus.Exporter) {
 	zpages.Handle(mux, "/debug")
 
 	// add api endpoint for prometheus
-	// mux.Handle("/metrics", pe)
+	mux.Handle("/metrics", pe)
 
 	och := &ochttp.Handler{
 		Handler: mux,

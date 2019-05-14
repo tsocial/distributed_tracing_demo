@@ -59,6 +59,7 @@ docker run -d --name jaeger \
 ### Start prometheus
 - Note that docker volume doesn't work with relative path([here](https://www.quora.com/Do-docker-volumes-not-work-with-relative-paths)) so we use `$PWD` environment variable here.
 - Prometheus is pull-based service. We must configure service / interval pulling time configuration in `prometheus.yml`
+- `prometheus.yml` uses `host.docker.internal` is a special DNS for docker container speaks with host. [Networking features in Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/networking/) In norml case, we can use localhost or 127.0.0.1
 ```bash
 docker run -p 9090:9090 -d -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
