@@ -219,14 +219,14 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:0b1317cf115c5fa79c408bfaba51a9f0a01c3f25c4ed14c1673664e3741c5f58"
+  digest = "1:13bc5d91bbf5ee2222fe4f8575362318051c797c0c4e7e03b1962571a0889282"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "5523eb0b9fa257313962632abdd45ebd1953a9da"
+  revision = "ca4ab2c8e32c8eb256150617d41e40a576436fec"
 
 [[projects]]
   digest = "1:d115651498fe2d54e8317beae4a9c1f0948573879956f04a8fded1566662a095"
@@ -309,8 +309,8 @@
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
   pruneopts = "UT"
-  revision = "54a98f90d1c46b7731eb8fb305d2a321c30ef610"
-  version = "v1.5.0"
+  revision = "4c25cacc810c02874000e4f7071286a8e96b2515"
+  version = "v1.6.0"
 
 [[projects]]
   branch = "master"
