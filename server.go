@@ -1,6 +1,9 @@
 package main
 
 import (
+	"context"
+	"github.com/tsocial/vite"
+	"github.com/tsocial/vite/httpkit"
 	"github.com/tsocial/vite/tracing"
 	"go.opencensus.io/trace"
 	"go.opencensus.io/zpages"
@@ -10,6 +13,7 @@ import (
 	"time"
 
 	"contrib.go.opencensus.io/exporter/prometheus"
+	"github.com/tsocial/vite/httpkit/comm"
 	"go.opencensus.io/plugin/ochttp"
 )
 
@@ -35,6 +39,7 @@ func loginAPI(w http.ResponseWriter, r *http.Request) {
 
 	// unfound key. expected tracing backend will show error
 	val = readKeyWithContext(wrapRedis, "UNFOUND_KEY")
+	time.Sleep(1 * time.Second)
 
 	// manually create span
 	_, span := trace.StartSpan(r.Context(), "child")
@@ -44,17 +49,17 @@ func loginAPI(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(time.Millisecond * 125)
 
 	// call external API.
-	nr, _ := http.NewRequest("GET", "https://example.com", nil)
-	// Propagate the trace header info in the outgoing requests.
-	nr = nr.WithContext(r.Context())
-	client := &http.Client{Transport: &ochttp.Transport{}}
-	response, err := client.Do(nr)
-	if err != nil {
-		log.Println(err)
-	}
-	_ = response.Body.Close()
+	sendExternalRequest(r.Context())
 
 	_, _ = w.Write([]byte(message))
+}
+
+func sendExternalRequest(ctx context.Context) {
+	url := "https://example.com"
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
+	outData := vite.Map{}
+
+	_, _ = request.Send(&outData)
 }
 
 func main() {
@@ -76,6 +81,12 @@ func main() {
 	}
 	defer tracing.UnregisterAllDatabaseViews()
 
+	err = tracing.RegisterAllRedisViews()
+	if err != nil {
+		panic(err)
+	}
+	defer tracing.UnregisterAllRedisViews()
+
 	_, err = tracing.RunConsoleExporter()
 	if err != nil {
 		panic(err)
@@ -85,11 +96,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	// startRawHTTPServer(pe)
 
-	initServer(pe)
+	err = startServerUsingHttpKit(pe)
+	if err != nil {
+		panic(err)
+	}
 }
 
-func initServer(pe *prometheus.Exporter) {
+func startRawHTTPServer(pe *prometheus.Exporter) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/login", loginAPI)
 
@@ -99,11 +114,48 @@ func initServer(pe *prometheus.Exporter) {
 	// add api endpoint for prometheus
 	mux.Handle("/metrics", pe)
 
+	// wrap handler inside OpenCensus handler for tracing request
 	och := &ochttp.Handler{
 		Handler: mux,
 	}
 
+	// start
 	if err := http.ListenAndServe(":3000", och); err != nil {
 		panic(err)
 	}
+}
+
+func startServerUsingHttpKit(pe *prometheus.Exporter) error {
+	// create app object
+	handlers := []*httpkit.RouteHandler{
+		{
+			Route: &httpkit.Route{
+				Name:   "login_api",
+				Method: http.MethodGet,
+				Path:   "/login",
+			},
+			Handle: loginAPI,
+		},
+	}
+	app := httpkit.NewApp(nil, httpkit.SampleSecret)
+	app.AddPublicRouteHandlers(handlers...)
+
+	// create server object
+	option := httpkit.ServerOption{
+		AllowTracing: true,
+	}
+	address := "localhost:3000"
+	server := app.NewHTTPServer(address, option)
+
+	// decorated server object
+	// TODO looking for better way
+
+	// add local tracing with zpages
+	zpages.Handle(app.Mux, "/debug")
+
+	// add api endpoint for prometheus
+	app.Mux.Handle("/metrics", pe)
+
+	log.Println(vite.MarkInfo, "starting server", address)
+	return server.Start()
 }

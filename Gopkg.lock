@@ -61,7 +61,7 @@
   version = "v3.2.0"
 
 [[projects]]
-  digest = "1:33082c63746b464db3d1c2c07a1396d860484d97fe857ef9e8668a9b406db09f"
+  digest = "1:c950e574951c7199fb3d990d0e7a61996f40f8e646ba7cf8a557878d4c737f53"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -73,8 +73,8 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "d22fde8721cc915a55aeb6b00944a76a92bfeb6e"
-  version = "v6.15.2"
+  revision = "75795aa4236dc7341eefac3bbe945e68c99ef9df"
+  version = "v6.15.3"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -167,7 +167,15 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:93a746f1060a8acbcf69344862b2ceced80f854170e1caae089b2834c5fbf7f4"
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  pruneopts = "UT"
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:0de31727c88e9f4a4ae70c28b6caa27f39b25788daf2dc4f7406013421228144"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -175,8 +183,8 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "505eaef017263e299324067d40ca2c48f6a2cf50"
-  version = "v0.9.2"
+  revision = "50c4339db732beb2165735d2cde0bff78eb3c5a5"
+  version = "v0.9.3"
 
 [[projects]]
   branch = "master"
@@ -200,14 +208,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9d62e12429921bbbdc2d1e3c81c6a2c128cc07046633ff92fb6d17376f74261d"
+  digest = "1:febbae5fbeac5cdbe5506bed8a6110e7341e0e46b89b056d9888ddf8a6a2d136"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
     "internal/fs",
   ]
   pruneopts = "UT"
-  revision = "5867b95ac084bbfee6ea16595c4e05ab009021da"
+  revision = "169873baca24ac97d9ecff83a3b7e547b22832ba"
 
 [[projects]]
   digest = "1:08d65904057412fc0270fc4812a1c90c594186819243160dc779a402d4b6d0bc"
@@ -218,15 +226,30 @@
   version = "v1.3.0"
 
 [[projects]]
+  digest = "1:5da8ce674952566deae4dbc23d07c85caafc6cfa815b0b3e03e41979cedb8750"
+  name = "github.com/stretchr/testify"
+  packages = [
+    "assert",
+    "require",
+  ]
+  pruneopts = "UT"
+  revision = "ffdc059bfe9ce6a4e144ba849dbedead332c6053"
+  version = "v1.3.0"
+
+[[projects]]
   branch = "distributed_tracing"
-  digest = "1:13bc5d91bbf5ee2222fe4f8575362318051c797c0c4e7e03b1962571a0889282"
+  digest = "1:89044c3137346a4e570aff5ba65c5bdaba8cd91dec98d4ecef016d2efd4dc406"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
+    "httpkit",
+    "httpkit/comm",
+    "jwt",
+    "otp",
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "ca4ab2c8e32c8eb256150617d41e40a576436fec"
+  revision = "5a7650fb2de02f8f1668c1883c21376880f1e88e"
 
 [[projects]]
   digest = "1:d115651498fe2d54e8317beae4a9c1f0948573879956f04a8fded1566662a095"
@@ -287,14 +310,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b0cf0a23da8288b6d1ec9187e87f95d6e957f50f41b62f06b4eefaa01d4e8d7a"
+  digest = "1:ed12b66f91f04a5101a0f635bdfc99d6c56a9f0e10e1f7557922a2e8551ab55b"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "3a4b5fb9f71f5874b2374ae059bc0e0bcb52e145"
+  revision = "61b9204099cb1bebc803c9ffb9b2d3acd9d457d9"
 
 [[projects]]
   digest = "1:5f003878aabe31d7f6b842d4de32b41c46c214bb629bb485387dbcce1edf5643"
@@ -318,7 +341,7 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "d00d292a067ce1aa0017b40ca75437b42461fa61"
+  revision = "bb713bdc0e5239f2b68e560efbe1c701a6fe78f9"
 
 [[projects]]
   digest = "1:041b0dc4050bb1be1e15c232c3328019922b2b14931340eca020ec182bf9a98d"
@@ -342,6 +365,8 @@
     "github.com/go-redis/redis",
     "github.com/jinzhu/gorm",
     "github.com/tsocial/vite",
+    "github.com/tsocial/vite/httpkit",
+    "github.com/tsocial/vite/httpkit/comm",
     "github.com/tsocial/vite/tracing",
     "go.opencensus.io/plugin/ochttp",
     "go.opencensus.io/trace",
