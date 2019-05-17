@@ -208,14 +208,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:febbae5fbeac5cdbe5506bed8a6110e7341e0e46b89b056d9888ddf8a6a2d136"
+  digest = "1:21399272d01010030a98271ab88bacf76491c8685c92bd105383451d5166a29a"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
     "internal/fs",
   ]
   pruneopts = "UT"
-  revision = "169873baca24ac97d9ecff83a3b7e547b22832ba"
+  revision = "51af30a78b0ecb1d67793630dbf35d664092e6ad"
 
 [[projects]]
   digest = "1:08d65904057412fc0270fc4812a1c90c594186819243160dc779a402d4b6d0bc"
@@ -238,7 +238,7 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:0a8a3e7471c7e9f026822e38e9d5035fad92fbf433cfe3e2d6bdca0f76833240"
+  digest = "1:d59121b74ba1301b7a516e5f699171cf968ad62b01f6883bae5f362b0040e343"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -249,7 +249,7 @@
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "44be58f3316228be0f1c65bf35b3e842ee58da81"
+  revision = "eec600383947804a355d59ef1704a0dd565e3ea8"
 
 [[projects]]
   digest = "1:e3ccccfa8d6bddc69f66fc459d76bec270f12fcbaee23609ce794ba0d4f7446f"
@@ -370,7 +370,7 @@
     "github.com/tsocial/vite/httpkit/comm",
     "github.com/tsocial/vite/tracing",
     "go.opencensus.io/plugin/ochttp",
-    "go.opencensus.io/plugin/ochttp/propagation/b3",
+    "go.opencensus.io/plugin/ochttp/propagation/tracecontext",
     "go.opencensus.io/trace",
     "go.opencensus.io/zpages",
   ]

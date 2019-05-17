@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-var requestOption = comm.CommRequestOption{
+var requestOption = comm.RequestOption{
 	Transport: &ochttp.Transport{
 		Propagation: &tracecontext.HTTPFormat{},
 		// Propagation: &b3.HTTPFormat{},
