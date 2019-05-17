@@ -9,6 +9,7 @@ import (
 	"go.opencensus.io/zpages"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -17,7 +18,12 @@ import (
 	"go.opencensus.io/plugin/ochttp"
 )
 
-func loginAPI(w http.ResponseWriter, r *http.Request) {
+func secondAPI(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(1 * time.Second)
+	_, _ = w.Write([]byte("Hello! I am second API"))
+}
+
+func firstAPI(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 	message = strings.TrimPrefix(message, "/")
 	message = "Hello " + message
@@ -51,6 +57,9 @@ func loginAPI(w http.ResponseWriter, r *http.Request) {
 	// call external API.
 	sendExternalRequest(r.Context())
 
+	// call internal API
+	sendInternalRequest(r.Context())
+
 	_, _ = w.Write([]byte(message))
 }
 
@@ -62,7 +71,20 @@ func sendExternalRequest(ctx context.Context) {
 	_, _ = request.Send(&outData)
 }
 
+func sendInternalRequest(ctx context.Context) {
+	url := "http://localhost:4000/second"
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
+	outData := vite.Map{}
+
+	_, _ = request.Send(&outData)
+}
+
 func main() {
+	address := "localhost:3000"
+	if len(os.Args) > 1 {
+		address = os.Args[1]
+	}
+
 	loadRedisConfig()
 	MigrateDB()
 
@@ -98,15 +120,15 @@ func main() {
 	}
 	// startRawHTTPServer(pe)
 
-	err = startServerUsingHttpKit(pe)
+	err = startServerUsingHttpKit(address, pe)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func startRawHTTPServer(pe *prometheus.Exporter) {
+func startRawHTTPServer(address string, pe *prometheus.Exporter) {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/login", loginAPI)
+	mux.HandleFunc("/first", firstAPI)
 
 	// add local tracing with zpages
 	zpages.Handle(mux, "/debug")
@@ -120,21 +142,29 @@ func startRawHTTPServer(pe *prometheus.Exporter) {
 	}
 
 	// start
-	if err := http.ListenAndServe(":3000", och); err != nil {
+	if err := http.ListenAndServe(address, och); err != nil {
 		panic(err)
 	}
 }
 
-func startServerUsingHttpKit(pe *prometheus.Exporter) error {
+func startServerUsingHttpKit(address string, pe *prometheus.Exporter) error {
 	// create app object
 	handlers := []*httpkit.RouteHandler{
 		{
 			Route: &httpkit.Route{
-				Name:   "login_api",
+				Name:   "first_api",
 				Method: http.MethodGet,
-				Path:   "/login",
+				Path:   "/first",
 			},
-			Handle: loginAPI,
+			Handle: firstAPI,
+		},
+		{
+			Route: &httpkit.Route{
+				Name:   "second_api",
+				Method: http.MethodGet,
+				Path:   "/second",
+			},
+			Handle: secondAPI,
 		},
 	}
 	app := httpkit.NewApp(nil, httpkit.SampleSecret)
@@ -142,9 +172,12 @@ func startServerUsingHttpKit(pe *prometheus.Exporter) error {
 
 	// create server object
 	option := httpkit.ServerOption{
-		AllowTracing: true,
+		TracingOption: &tracing.OptionTracing{
+			PropagationFormat: tracing.B3Format,
+			IsPublicEndpoint:  false,
+			SamplingFraction:  1,
+		},
 	}
-	address := "localhost:3000"
 	server := app.NewHTTPServer(address, option)
 
 	// decorated server object

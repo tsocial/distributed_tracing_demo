@@ -238,7 +238,7 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:89044c3137346a4e570aff5ba65c5bdaba8cd91dec98d4ecef016d2efd4dc406"
+  digest = "1:700e4a53cb4842f56f23477752e1d473ef127107b31437a5762dfdbd07320779"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -249,10 +249,10 @@
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "5a7650fb2de02f8f1668c1883c21376880f1e88e"
+  revision = "facd5771f39e91ae65893175760c97369ea909c2"
 
 [[projects]]
-  digest = "1:d115651498fe2d54e8317beae4a9c1f0948573879956f04a8fded1566662a095"
+  digest = "1:e3ccccfa8d6bddc69f66fc459d76bec270f12fcbaee23609ce794ba0d4f7446f"
   name = "go.opencensus.io"
   packages = [
     ".",
@@ -264,6 +264,7 @@
     "plugin/ocgrpc",
     "plugin/ochttp",
     "plugin/ochttp/propagation/b3",
+    "plugin/ochttp/propagation/tracecontext",
     "resource",
     "stats",
     "stats/internal",

@@ -74,9 +74,15 @@ TBD
 TBD
 
 ## Testing on some backend
+### Start service
+Run following bash script. It will start 2 services, listening on port 3000 and 4000.
+```bash
+./run.sh
+```
+
 For sending request, run following commands:
 ```bash
-curl localhost:3000/login
+curl localhost:3000/first
 ```
 
 
