@@ -238,7 +238,7 @@
 
 [[projects]]
   branch = "distributed_tracing"
-  digest = "1:700e4a53cb4842f56f23477752e1d473ef127107b31437a5762dfdbd07320779"
+  digest = "1:6b83ecf8e7348b4ef94858d2fc5778cd3ce9754f04ac2376cddf6357149408aa"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -249,7 +249,7 @@
     "tracing",
   ]
   pruneopts = "UT"
-  revision = "facd5771f39e91ae65893175760c97369ea909c2"
+  revision = "58373a4c69a4f0d498ffaa2b1f7531fc6efa4d12"
 
 [[projects]]
   digest = "1:e3ccccfa8d6bddc69f66fc459d76bec270f12fcbaee23609ce794ba0d4f7446f"

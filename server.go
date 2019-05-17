@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"contrib.go.opencensus.io/exporter/prometheus"
+	"crypto/tls"
 	"github.com/tsocial/vite"
 	"github.com/tsocial/vite/httpkit"
 	"github.com/tsocial/vite/tracing"
+	"go.opencensus.io/plugin/ochttp/propagation/b3"
 	"go.opencensus.io/trace"
 	"go.opencensus.io/zpages"
 	"log"
@@ -13,12 +16,21 @@ import (
 	"strings"
 	"time"
 
-	"contrib.go.opencensus.io/exporter/prometheus"
 	"github.com/tsocial/vite/httpkit/comm"
 	"go.opencensus.io/plugin/ochttp"
 )
 
+var DefaultTransport = &ochttp.Transport{
+	// Propagation: &tracecontext.HTTPFormat{},
+	Propagation: &b3.HTTPFormat{},
+	Base: &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	},
+}
+
 func secondAPI(w http.ResponseWriter, r *http.Request) {
+	log.Println(vite.MarkError, "thao")
+	log.Println(vite.MarkError, r.Header)
 	time.Sleep(1 * time.Second)
 	_, _ = w.Write([]byte("Hello! I am second API"))
 }
@@ -66,16 +78,20 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 func sendExternalRequest(ctx context.Context) {
 	url := "https://example.com"
 	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
+	request.RequestOption = comm.CommRequestOption{
+		Transport: DefaultTransport,
+	}
 	outData := vite.Map{}
-
 	_, _ = request.Send(&outData)
 }
 
 func sendInternalRequest(ctx context.Context) {
 	url := "http://localhost:4000/second"
 	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
+	request.RequestOption = comm.CommRequestOption{
+		Transport: DefaultTransport,
+	}
 	outData := vite.Map{}
-
 	_, _ = request.Send(&outData)
 }
 
@@ -173,7 +189,7 @@ func startServerUsingHttpKit(address string, pe *prometheus.Exporter) error {
 	// create server object
 	option := httpkit.ServerOption{
 		TracingOption: &tracing.OptionTracing{
-			PropagationFormat: tracing.B3Format,
+			PropagationFormat: tracing.TracingContextFormat,
 			IsPublicEndpoint:  false,
 			SamplingFraction:  1,
 		},
