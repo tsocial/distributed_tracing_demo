@@ -6,8 +6,10 @@ import (
 	"crypto/tls"
 	"github.com/tsocial/vite"
 	"github.com/tsocial/vite/httpkit"
+	"github.com/tsocial/vite/httpkit/comm"
 	"github.com/tsocial/vite/tracing"
-	"go.opencensus.io/plugin/ochttp/propagation/b3"
+	"go.opencensus.io/plugin/ochttp"
+	"go.opencensus.io/plugin/ochttp/propagation/tracecontext"
 	"go.opencensus.io/trace"
 	"go.opencensus.io/zpages"
 	"log"
@@ -15,16 +17,15 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	"github.com/tsocial/vite/httpkit/comm"
-	"go.opencensus.io/plugin/ochttp"
 )
 
-var DefaultTransport = &ochttp.Transport{
-	// Propagation: &tracecontext.HTTPFormat{},
-	Propagation: &b3.HTTPFormat{},
-	Base: &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+var requestOption = comm.CommRequestOption{
+	Transport: &ochttp.Transport{
+		Propagation: &tracecontext.HTTPFormat{},
+		// Propagation: &b3.HTTPFormat{},
+		Base: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
 	},
 }
 
@@ -77,20 +78,14 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 
 func sendExternalRequest(ctx context.Context) {
 	url := "https://example.com"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
-	request.RequestOption = comm.CommRequestOption{
-		Transport: DefaultTransport,
-	}
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, requestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }
 
 func sendInternalRequest(ctx context.Context) {
 	url := "http://localhost:4000/second"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil)
-	request.RequestOption = comm.CommRequestOption{
-		Transport: DefaultTransport,
-	}
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, requestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }
