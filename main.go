@@ -2,6 +2,7 @@ package main
 
 import (
 	"contrib.go.opencensus.io/exporter/prometheus"
+	"fmt"
 	"github.com/tsocial/vite"
 	"github.com/tsocial/vite/httpkit"
 	"github.com/tsocial/vite/tracing"
@@ -24,7 +25,7 @@ func main() {
 	MigrateDB()
 
 	_, err := tracing.RunJaegerExporter(
-		"trusting_social_demo",
+		fmt.Sprintf("trusting_social_demo||%s", address),
 		"localhost:6831",
 		"http://localhost:14268/api/traces",
 	)

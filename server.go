@@ -26,7 +26,11 @@ var requestOption = comm.RequestOption{
 }
 
 func secondAPI(w http.ResponseWriter, r *http.Request) {
+	_, span := trace.StartSpan(r.Context(), "second api span")
+	span.AddAttributes(trace.StringAttribute("api", "second api"))
 	time.Sleep(1 * time.Second)
+	span.End()
+
 	_, _ = w.Write([]byte("Hello! I am second API"))
 }
 
@@ -55,23 +59,24 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 
 	// manually create span
 	_, span := trace.StartSpan(r.Context(), "child")
-	defer span.End()
 	span.Annotate([]trace.Attribute{trace.StringAttribute("key", "value")}, "something happened")
 	span.AddAttributes(trace.StringAttribute("hello", "world"))
 	time.Sleep(time.Millisecond * 125)
+	span.End()
 
 	// call external API.
+	sendExternalRequest(r.Context())
 	sendExternalRequest(r.Context())
 
 	// call internal API
 	sendInternalRequest(r.Context())
 
 	// manually create span
-	_, span = trace.StartSpan(r.Context(), "child")
-	defer span.End()
+	_, span = trace.StartSpan(r.Context(), "second child")
 	span.Annotate([]trace.Attribute{trace.StringAttribute("key", "value")}, "something happened")
-	span.AddAttributes(trace.StringAttribute("hello", "world"))
+	span.AddAttributes(trace.StringAttribute("ackack", "ack ack"))
 	time.Sleep(time.Millisecond * 125)
+	span.End()
 
 	_, _ = w.Write([]byte(message))
 }
