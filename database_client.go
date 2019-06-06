@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
+	tracinggorm "github.com/tsocial/tracing/gorm"
 	"github.com/tsocial/vite"
-	"github.com/tsocial/vite/tracing"
 	"log"
 	"time"
 )
@@ -51,7 +51,7 @@ func MigrateDB() {
 		panic(err)
 	}
 
-	tracing.RegisterGormCallbacks(testDB)
+	tracinggorm.RegisterGormCallbacks(testDB)
 }
 
 type Product struct {

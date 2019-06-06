@@ -141,11 +141,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fd97437fbb6b7dce04132cf06775bd258cce305c44add58eb55ca86c6c325160"
+  digest = "1:01ed62f8f4f574d8aff1d88caee113700a2b44c42351943fa73cc1808f736a50"
   name = "github.com/jinzhu/inflection"
   packages = ["."]
   pruneopts = "UT"
-  revision = "04140366298a54a039076d798123ffa108fff46c"
+  revision = "f5c5f50e6090ae76a29240b61ae2a90dd810112e"
 
 [[projects]]
   branch = "master"
@@ -195,7 +195,7 @@
   revision = "fd36f4220a901265f90734c3183c5f0c91daa0b8"
 
 [[projects]]
-  digest = "1:35cf6bdf68db765988baa9c4f10cc5d7dda1126a54bd62e252dbcd0b1fc8da90"
+  digest = "1:8dcedf2e8f06c7f94e48267dea0bc0be261fa97b377f3ae3e87843a92a549481"
   name = "github.com/prometheus/common"
   packages = [
     "expfmt",
@@ -203,19 +203,19 @@
     "model",
   ]
   pruneopts = "UT"
-  revision = "1ba88736f028e37bc17328369e94a537ae9e0234"
-  version = "v0.4.0"
+  revision = "17f5ca1748182ddf24fc33a5a7caaaf790a52fcc"
+  version = "v0.4.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:21399272d01010030a98271ab88bacf76491c8685c92bd105383451d5166a29a"
+  digest = "1:403b810b43500b5b0a9a24a47347e31dc2783ccae8cf97c891b46f5b0496fa1a"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
     "internal/fs",
   ]
   pruneopts = "UT"
-  revision = "51af30a78b0ecb1d67793630dbf35d664092e6ad"
+  revision = "833678b5bb319f2d20a475cb165c6cc59c2cc77c"
+  version = "v0.0.2"
 
 [[projects]]
   digest = "1:08d65904057412fc0270fc4812a1c90c594186819243160dc779a402d4b6d0bc"
@@ -237,8 +237,22 @@
   version = "v1.3.0"
 
 [[projects]]
-  branch = "distributed_tracing"
-  digest = "1:d59121b74ba1301b7a516e5f699171cf968ad62b01f6883bae5f362b0040e343"
+  branch = "http"
+  digest = "1:f63318de42a5f941ddea6e515b520e6ba40c910e856be2c8261b83370037927a"
+  name = "github.com/tsocial/tracing"
+  packages = [
+    ".",
+    "exporter",
+    "gorm",
+    "http",
+    "redis",
+  ]
+  pruneopts = "UT"
+  revision = "e3b92d2ed99a0ad733da7213fdda053fc047e989"
+
+[[projects]]
+  branch = "tracing_httpkit"
+  digest = "1:90d7d6f48350320491a782b3b3a900ab9089d2a8eddf9e018659fa78ed87672a"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -246,13 +260,12 @@
     "httpkit/comm",
     "jwt",
     "otp",
-    "tracing",
   ]
   pruneopts = "UT"
-  revision = "eec600383947804a355d59ef1704a0dd565e3ea8"
+  revision = "df5556790d84250ab794f202afc88db923b1cfdc"
 
 [[projects]]
-  digest = "1:e3ccccfa8d6bddc69f66fc459d76bec270f12fcbaee23609ce794ba0d4f7446f"
+  digest = "1:7708e6b74e9f420b9fad67a03d2d55353e3ed29aecc03027ff2bf32eb63e1c09"
   name = "go.opencensus.io"
   packages = [
     ".",
@@ -278,8 +291,8 @@
     "zpages/internal",
   ]
   pruneopts = "UT"
-  revision = "df6e2001952312404b06f5f6f03fcb4aec1648e5"
-  version = "v0.21.0"
+  revision = "9c377598961b706d1542bd2d84d538b5094d596e"
+  version = "v0.22.0"
 
 [[projects]]
   branch = "master"
@@ -291,15 +304,7 @@
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "22d7a77e9e5f409e934ed268692e56707cd169e5"
-
-[[projects]]
-  branch = "master"
-  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
-  name = "golang.org/x/net"
-  packages = ["context"]
-  pruneopts = "UT"
-  revision = "3ec19112720433827bbce8be9342797f5a6aaaf9"
+  revision = "f99c8df09eb5bff426315721bfa5f16a99cad32c"
 
 [[projects]]
   branch = "master"
@@ -311,22 +316,22 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ed12b66f91f04a5101a0f635bdfc99d6c56a9f0e10e1f7557922a2e8551ab55b"
+  digest = "1:331c29b578b52022db561eb771b90180728b7246653e35df65ae8a60c8ef3499"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "61b9204099cb1bebc803c9ffb9b2d3acd9d457d9"
+  revision = "5da285871e9c6a1c3acade75bea3282d33f55ebd"
 
 [[projects]]
   digest = "1:5f003878aabe31d7f6b842d4de32b41c46c214bb629bb485387dbcce1edf5643"
   name = "google.golang.org/api"
   packages = ["support/bundler"]
   pruneopts = "UT"
-  revision = "721295fe20d585ce7e948146f82188429d14da33"
-  version = "v0.5.0"
+  revision = "aac82e61c0c8fe133c297b4b59316b9f481e1f0a"
+  version = "v0.6.0"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
@@ -342,10 +347,10 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "bb713bdc0e5239f2b68e560efbe1c701a6fe78f9"
+  revision = "eb0b1bdb6ae60fcfc41b8d907b50dfb346112301"
 
 [[projects]]
-  digest = "1:041b0dc4050bb1be1e15c232c3328019922b2b14931340eca020ec182bf9a98d"
+  digest = "1:dc167741cc04fdeba7441475a16cce3dc5e0d7a3ecab466eae472d70e31eabf8"
   name = "google.golang.org/grpc"
   packages = [
     "codes",
@@ -355,8 +360,8 @@
     "status",
   ]
   pruneopts = "UT"
-  revision = "25c4f928eaa6d96443009bd842389fb4fa48664e"
-  version = "v1.20.1"
+  revision = "501c41df7f472c740d0674ff27122f3f48c80ce7"
+  version = "v1.21.1"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -365,10 +370,13 @@
     "contrib.go.opencensus.io/exporter/prometheus",
     "github.com/go-redis/redis",
     "github.com/jinzhu/gorm",
+    "github.com/tsocial/tracing/exporter",
+    "github.com/tsocial/tracing/gorm",
+    "github.com/tsocial/tracing/http",
+    "github.com/tsocial/tracing/redis",
     "github.com/tsocial/vite",
     "github.com/tsocial/vite/httpkit",
     "github.com/tsocial/vite/httpkit/comm",
-    "github.com/tsocial/vite/tracing",
     "go.opencensus.io/plugin/ochttp",
     "go.opencensus.io/plugin/ochttp/propagation/tracecontext",
     "go.opencensus.io/trace",

@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
+	tracinggorm "github.com/tsocial/tracing/gorm"
+	tracinghttp "github.com/tsocial/tracing/http"
+	tracingredis "github.com/tsocial/tracing/redis"
 	"github.com/tsocial/vite"
+	"github.com/tsocial/vite/httpkit"
 	"github.com/tsocial/vite/httpkit/comm"
-	"github.com/tsocial/vite/tracing"
-	"go.opencensus.io/plugin/ochttp"
-	"go.opencensus.io/plugin/ochttp/propagation/tracecontext"
 	"go.opencensus.io/trace"
 	"log"
 	"net/http"
@@ -15,14 +15,16 @@ import (
 	"time"
 )
 
-var requestOption = comm.RequestOption{
-	Transport: &ochttp.Transport{
-		Propagation: &tracecontext.HTTPFormat{},
-		// Propagation: &b3.HTTPFormat{},
-		Base: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-	},
+var OptionTracing = tracinghttp.OptionTracing{
+	PropagationFormat: tracinghttp.B3Format,
+	IsPublicEndpoint:  false,
+	SamplingFraction:  1.0,
+}
+
+var TracingTransport, _ = tracinghttp.WrapTransportWithTracing(httpkit.DefaultTransport, OptionTracing)
+
+var CommRequestOption = comm.RequestOption{
+	Transport: TracingTransport,
 }
 
 func secondAPI(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +42,7 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 	message = "Hello " + message
 
 	// wrap orm object before calling database
-	orm := tracing.GormWithContext(r.Context(), testDB)
+	orm := tracinggorm.WithContext(r.Context(), testDB)
 	product, _ := GetFirstProductWithContext(orm)
 	log.Println(product.Name)
 
@@ -48,7 +50,7 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 	_ = GetAllProductDates(orm)
 
 	// wrap redis object before calling redis operator
-	wrapRedis := tracing.RedisWithContext(r.Context(), Redis.Client)
+	wrapRedis := tracingredis.WithContext(r.Context(), Redis.Client)
 	writeKeyWithContext(wrapRedis, "service", "StackOverFlow")
 	val := readKeyWithContext(wrapRedis, "service")
 	log.Println(val)
@@ -83,14 +85,14 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 
 func sendExternalRequest(ctx context.Context) {
 	url := "https://example.com"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, requestOption)
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }
 
 func sendInternalRequest(ctx context.Context) {
 	url := "http://localhost:4000/second"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, requestOption)
+	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }

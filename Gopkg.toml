@@ -30,5 +30,9 @@
   unused-packages = true
 
 [[constraint]]
-  branch = "distributed_tracing"
+  branch = "tracing_httpkit"
   name = "github.com/tsocial/vite"
+
+#[[constraint]]
+#  branch = "http"
+#  name = "github.com/tsocial/tracing"
