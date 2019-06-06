@@ -7,7 +7,10 @@ import (
 	tracinggorm "github.com/tsocial/tracing/gorm"
 	tracinghttp "github.com/tsocial/tracing/http"
 	tracingredis "github.com/tsocial/tracing/redis"
+	"github.com/tsocial/vite"
+	"github.com/tsocial/vite/httpkit"
 	"go.opencensus.io/trace"
+	"log"
 	"net/http"
 	"os"
 )
@@ -53,12 +56,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	startRawHTTPServer(address, pe)
 
-	//err = startServerUsingHttpKit(address, pe)
-	//if err != nil {
-	//	panic(err)
-	//}
+	// startRawHTTPServer(address, pe)
+
+	err = startServerUsingHttpKit(address, pe)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func startRawHTTPServer(address string, pe *prometheus.Exporter) {
@@ -81,45 +85,41 @@ func startRawHTTPServer(address string, pe *prometheus.Exporter) {
 	}
 }
 
-//func startServerUsingHttpKit(address string, pe *prometheus.Exporter) error {
-//	// create app object
-//	handlers := []*httpkit.RouteHandler{
-//		{
-//			Route: &httpkit.Route{
-//				Name:   "first_api",
-//				Method: http.MethodGet,
-//				Path:   "/first",
-//			},
-//			Handle: firstAPI,
-//		},
-//		{
-//			Route: &httpkit.Route{
-//				Name:   "second_api",
-//				Method: http.MethodGet,
-//				Path:   "/second",
-//			},
-//			Handle: secondAPI,
-//		},
-//	}
-//	app := httpkit.NewApp(nil, httpkit.SampleSecret)
-//	app.AddPublicRouteHandlers(handlers...)
-//
-//	// create server object
-//	option := httpkit.ServerOption{
-//		TracingOption: &tracing.OptionTracing{
-//			PropagationFormat: tracing.TracingContextFormat,
-//			IsPublicEndpoint:  false,
-//			SamplingFraction:  1,
-//		},
-//	}
-//	server := app.NewHTTPServer(address, option)
-//
-//	// add local tracing with zpages
-//	zpages.Handle(app.Mux, "/debug")
-//
-//	// add api endpoint for prometheus
-//	app.Mux.Handle("/metrics", pe)
-//
-//	log.Println(vite.MarkInfo, "starting server", address)
-//	return server.Start()
-//}
+func startServerUsingHttpKit(address string, pe *prometheus.Exporter) error {
+	// create app object
+	handlers := []*httpkit.RouteHandler{
+		{
+			Route: &httpkit.Route{
+				Name:   "first_api",
+				Method: http.MethodGet,
+				Path:   "/first",
+			},
+			Handle: firstAPI,
+		},
+		{
+			Route: &httpkit.Route{
+				Name:   "second_api",
+				Method: http.MethodGet,
+				Path:   "/second",
+			},
+			Handle: secondAPI,
+		},
+	}
+	app := httpkit.NewApp(nil, httpkit.SampleSecret)
+	app.AddPublicRouteHandlers(handlers...)
+
+	// create server object
+	option := httpkit.ServerOption{
+		TracingOption: &OptionTracing,
+	}
+	server := app.NewHTTPServer(address, option)
+
+	// add local tracing with zpages
+	// zpages.Handle(app.Mux, "/debug")
+
+	// add api endpoint for prometheus
+	// app.Mux.Handle("/metrics", pe)
+
+	log.Println(vite.MarkInfo, "starting server", address)
+	return server.Start()
+}
