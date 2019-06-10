@@ -19,6 +19,7 @@ var OptionTracing = tracinghttp.OptionTracing{
 	PropagationFormat: tracinghttp.B3Format,
 	IsPublicEndpoint:  false,
 	SamplingFraction:  1.0,
+	ServiceName:       "distributed_tracing_demo",
 }
 
 var TracingTransport, _ = tracinghttp.WrapTransportWithTracing(httpkit.DefaultTransport, OptionTracing)

@@ -175,7 +175,7 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:0de31727c88e9f4a4ae70c28b6caa27f39b25788daf2dc4f7406013421228144"
+  digest = "1:e89f2cdede55684adbe44b5566f55838ad2aee1dff348d14b73ccf733607b671"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -183,8 +183,8 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "50c4339db732beb2165735d2cde0bff78eb3c5a5"
-  version = "v0.9.3"
+  revision = "2641b987480bca71fb39738eb8c8b0d577cb1d76"
+  version = "v0.9.4"
 
 [[projects]]
   branch = "master"
@@ -238,7 +238,7 @@
 
 [[projects]]
   branch = "http"
-  digest = "1:f63318de42a5f941ddea6e515b520e6ba40c910e856be2c8261b83370037927a"
+  digest = "1:b91cb93964a1f85acd466ab1371c27d13fe4ce3e2385e976ef71ec21fc668fb0"
   name = "github.com/tsocial/tracing"
   packages = [
     ".",
@@ -248,11 +248,11 @@
     "redis",
   ]
   pruneopts = "UT"
-  revision = "e3b92d2ed99a0ad733da7213fdda053fc047e989"
+  revision = "b919dec7727135cc8c2e3a874a8784d56fd8357e"
 
 [[projects]]
   branch = "tracing_httpkit"
-  digest = "1:90d7d6f48350320491a782b3b3a900ab9089d2a8eddf9e018659fa78ed87672a"
+  digest = "1:56f336c2800980350c55b2dce0050aa8fa24fcebba18b77e0efb7fded8f6163b"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -262,7 +262,7 @@
     "otp",
   ]
   pruneopts = "UT"
-  revision = "df5556790d84250ab794f202afc88db923b1cfdc"
+  revision = "32b446ad7b2f6e1f5b961ca4b5d80aae9042bda1"
 
 [[projects]]
   digest = "1:7708e6b74e9f420b9fad67a03d2d55353e3ed29aecc03027ff2bf32eb63e1c09"
@@ -316,14 +316,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:331c29b578b52022db561eb771b90180728b7246653e35df65ae8a60c8ef3499"
+  digest = "1:7dc7c981bc694f713f6b082ecb7417d8935b74eff5dece50405faa6af62e1ebc"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "5da285871e9c6a1c3acade75bea3282d33f55ebd"
+  revision = "1e42afee0f762ed3d76e6dd942e4181855fd1849"
 
 [[projects]]
   digest = "1:5f003878aabe31d7f6b842d4de32b41c46c214bb629bb485387dbcce1edf5643"
@@ -338,8 +338,8 @@
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
   pruneopts = "UT"
-  revision = "4c25cacc810c02874000e4f7071286a8e96b2515"
-  version = "v1.6.0"
+  revision = "b2f4a3cf3c67576a2ee09e1fe62656a5086ce880"
+  version = "v1.6.1"
 
 [[projects]]
   branch = "master"
@@ -377,10 +377,7 @@
     "github.com/tsocial/vite",
     "github.com/tsocial/vite/httpkit",
     "github.com/tsocial/vite/httpkit/comm",
-    "go.opencensus.io/plugin/ochttp",
-    "go.opencensus.io/plugin/ochttp/propagation/tracecontext",
     "go.opencensus.io/trace",
-    "go.opencensus.io/zpages",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -35,17 +35,8 @@ func main() {
 		panic(err)
 	}
 
-	err = tracinggorm.RegisterAllDatabaseViews()
-	if err != nil {
-		panic(err)
-	}
-	defer tracinggorm.UnregisterAllDatabaseViews()
-
-	err = tracingredis.RegisterAllViews()
-	if err != nil {
-		panic(err)
-	}
-	defer tracingredis.UnregisterAllViews()
+	registerViews()
+	defer unRegisterAllViews()
 
 	//_, err = tracing.RunConsoleExporter()
 	//if err != nil {
@@ -63,6 +54,31 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// registerViews register all types of views framework can provided
+func registerViews() {
+	err := tracinggorm.RegisterAllDatabaseViews()
+	if err != nil {
+		panic(err)
+	}
+
+	err = tracingredis.RegisterAllViews()
+	if err != nil {
+		panic(err)
+	}
+
+	err = tracinghttp.RegisterAllViews()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func unRegisterAllViews() {
+	tracinggorm.UnregisterAllDatabaseViews()
+	tracingredis.UnregisterAllViews()
+	tracinghttp.UnregisterAllViews()
+
 }
 
 func startRawHTTPServer(address string, pe *prometheus.Exporter) {
@@ -114,11 +130,8 @@ func startServerUsingHttpKit(address string, pe *prometheus.Exporter) error {
 	}
 	server := app.NewHTTPServer(address, option)
 
-	// add local tracing with zpages
-	// zpages.Handle(app.Mux, "/debug")
-
-	// add api endpoint for prometheus
-	// app.Mux.Handle("/metrics", pe)
+	tracinghttp.AddLocalTraceEndpoint(app.Mux(), "/debug")
+	tracinghttp.AddPrometheusEndpoint(app.Mux(), pe, "/metrics")
 
 	log.Println(vite.MarkInfo, "starting server", address)
 	return server.Start()
