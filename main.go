@@ -9,7 +9,6 @@ import (
 	tracingredis "github.com/tsocial/tracing/redis"
 	"github.com/tsocial/vite"
 	"github.com/tsocial/vite/httpkit"
-	"go.opencensus.io/trace"
 	"log"
 	"net/http"
 	"os"
@@ -17,7 +16,8 @@ import (
 
 func main() {
 	// important for testing
-	trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
+	// don't need this config because have tracing option already
+	// trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 	address := "localhost:3000"
 	if len(os.Args) > 1 {
 		address = os.Args[1]
