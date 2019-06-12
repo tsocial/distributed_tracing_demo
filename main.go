@@ -26,6 +26,21 @@ func main() {
 	loadRedisConfig()
 	MigrateDB()
 
+	pe := registerExporters(address)
+
+	registerViews()
+	defer unRegisterAllViews()
+
+	// startRawHTTPServer(address, pe)
+
+	err := startServerUsingHttpKit(address, pe)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// registerExporters register all possible exporters
+func registerExporters(address string) *prometheus.Exporter {
 	_, err := tracingexporter.RunJaegerExporter(
 		fmt.Sprintf("trusting_social_demo||%s", address),
 		"localhost:6831",
@@ -34,9 +49,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	registerViews()
-	defer unRegisterAllViews()
 
 	//_, err = tracing.RunConsoleExporter()
 	//if err != nil {
@@ -47,13 +59,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	startRawHTTPServer(address, pe)
-
-	//err = startServerUsingHttpKit(address, pe)
-	//if err != nil {
-	//	panic(err)
-	//}
+	return pe
 }
 
 // registerViews register all types of views framework can provided
