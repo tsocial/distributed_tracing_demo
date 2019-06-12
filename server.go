@@ -24,7 +24,7 @@ var OptionTracing = tracinghttp.OptionTracing{
 
 var TracingTransport, _ = tracinghttp.WrapTransportWithTracing(httpkit.DefaultTransport, OptionTracing)
 
-var CommRequestOption = comm.RequestOption{
+var CommRequestOption = &comm.RequestOption{
 	Transport: TracingTransport,
 }
 
@@ -86,14 +86,14 @@ func firstAPI(w http.ResponseWriter, r *http.Request) {
 
 func sendExternalRequest(ctx context.Context) {
 	url := "https://example.com"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
+	request := comm.NewRequest(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }
 
 func sendInternalRequest(ctx context.Context) {
 	url := "http://localhost:4000/second"
-	request := comm.NewRequestWithContext(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
+	request := comm.NewRequest(ctx, http.MethodGet, url, vite.Map{}, nil, CommRequestOption)
 	outData := vite.Map{}
 	_, _ = request.Send(&outData)
 }

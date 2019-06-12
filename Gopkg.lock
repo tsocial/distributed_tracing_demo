@@ -237,8 +237,8 @@
   version = "v1.3.0"
 
 [[projects]]
-  branch = "http"
-  digest = "1:b91cb93964a1f85acd466ab1371c27d13fe4ce3e2385e976ef71ec21fc668fb0"
+  branch = "master"
+  digest = "1:637d0745be461113b0f0625497c0cf55528b2d567ceca3fa8748024ef6028ced"
   name = "github.com/tsocial/tracing"
   packages = [
     ".",
@@ -248,11 +248,11 @@
     "redis",
   ]
   pruneopts = "UT"
-  revision = "b919dec7727135cc8c2e3a874a8784d56fd8357e"
+  revision = "2bdf3025740923b3eb802b235f1363006a615b94"
 
 [[projects]]
   branch = "tracing_httpkit"
-  digest = "1:56f336c2800980350c55b2dce0050aa8fa24fcebba18b77e0efb7fded8f6163b"
+  digest = "1:3d05eb378d7ed8745d2eb8b1838015f307b1607b5384ae1c260841584b3957ce"
   name = "github.com/tsocial/vite"
   packages = [
     ".",
@@ -262,7 +262,7 @@
     "otp",
   ]
   pruneopts = "UT"
-  revision = "32b446ad7b2f6e1f5b961ca4b5d80aae9042bda1"
+  revision = "e971a38d7512ed5c03e236f9cd3d610c2cc2921e"
 
 [[projects]]
   digest = "1:7708e6b74e9f420b9fad67a03d2d55353e3ed29aecc03027ff2bf32eb63e1c09"
@@ -304,7 +304,7 @@
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "f99c8df09eb5bff426315721bfa5f16a99cad32c"
+  revision = "5c40567a22f818bd14a1ea7245dad9f8ef0691aa"
 
 [[projects]]
   branch = "master"
@@ -316,14 +316,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7dc7c981bc694f713f6b082ecb7417d8935b74eff5dece50405faa6af62e1ebc"
+  digest = "1:2a96b14fed8617c9e499777c03ec21f35dfd5b396f0b05fcdd7eff9e6c67f196"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "1e42afee0f762ed3d76e6dd942e4181855fd1849"
+  revision = "93c9922d18aeb82498a065f07aec7ad7fa60dfb7"
 
 [[projects]]
   digest = "1:5f003878aabe31d7f6b842d4de32b41c46c214bb629bb485387dbcce1edf5643"
@@ -347,7 +347,7 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "eb0b1bdb6ae60fcfc41b8d907b50dfb346112301"
+  revision = "a7e196e89fd3a3c4d103ca540bd5dac3a736e375"
 
 [[projects]]
   digest = "1:dc167741cc04fdeba7441475a16cce3dc5e0d7a3ecab466eae472d70e31eabf8"

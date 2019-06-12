@@ -48,12 +48,12 @@ func main() {
 		panic(err)
 	}
 
-	// startRawHTTPServer(address, pe)
+	startRawHTTPServer(address, pe)
 
-	err = startServerUsingHttpKit(address, pe)
-	if err != nil {
-		panic(err)
-	}
+	//err = startServerUsingHttpKit(address, pe)
+	//if err != nil {
+	//	panic(err)
+	//}
 }
 
 // registerViews register all types of views framework can provided
